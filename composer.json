@@ -1,0 +1,19 @@
+{
+    "name": "tst/SimpleFeedback",
+    "description": "A simple feedback backend service",
+    "minimum-stability": "dev",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "tst",
+            "email": "tst@panictank.net"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"SimpleFeedback\\": "src/"}
+    },
+    "require": {
+        "phpunit/phpunit": "4.3.4",
+        "guzzlehttp/guzzle": "5.0.1"
+    }
+}
