@@ -6,7 +6,7 @@
  * Time: 16:47
  */
 
-namespace SimpleFeedback;
+namespace SimpleFeedback\Responder;
 
 
 interface Responder {

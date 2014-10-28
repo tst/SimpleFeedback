@@ -6,7 +6,7 @@
  * Time: 13:21
  */
 
-namespace SimpleFeedback;
+namespace SimpleFeedback\Database;
 
 
 class Database {

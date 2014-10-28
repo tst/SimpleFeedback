@@ -18,14 +18,17 @@ class Action {
     {
         $this->request = $request;
         $pdo = new \PDO('sqlite:data.db');
-        $databaseManagerFactory = new DatabaseManagerFactory($pdo);
+        $databaseManagerFactory = new Domain\DatabaseManagerFactory($pdo);
         $this->databaseManager = $databaseManagerFactory->getDatabaseManager();
     }
 
 
-
+    /**
+     * Does the routing. Here you can define what handlers should be called.
+     */
     public function handleRequest()
     {
+        // TODO: Fix this mess
         $this->ipAddress = $this->request['REMOTE_ADDR'];
         $method = $this->request['REQUEST_METHOD'];
 
@@ -54,21 +57,19 @@ class Action {
 
     protected function handleShow()
     {
-        $responder = new ShowResponder();
+        $responder = new Responder\ShowResponder();
         $outputData = $this->databaseManager->getData();
         $responder->setOutput($outputData);
         $responder->serve();
-
     }
 
     protected function handlePost($input)
     {
-
         $success = $this->databaseManager->saveJSONData($input, $this->ipAddress);
-        if($success === false) {
-            $responder = new PostFailureResponder();
+        if ($success === false) {
+            $responder = new Responder\PostFailureResponder();
         } else {
-            $responder = new PostSuccessResponder();
+            $responder = new Responder\PostSuccessResponder();
             $responder->setOutput($success);
         }
         $responder->serve();
@@ -76,7 +77,7 @@ class Action {
 
     protected function handle404()
     {
-        $responder = new FileNotFoundResponder();
+        $responder = new Responder\FileNotFoundResponder();
         $responder->serve();
     }
 } 

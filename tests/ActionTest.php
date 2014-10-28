@@ -10,5 +10,14 @@ use SimpleFeedback\Action;
 
 class ActionTest extends PHPUnit_Framework_TestCase {
     // TODO: Write test using guzzle: http://guzzle.readthedocs.org/en/latest/quickstart.html
+    public function setUp()
+    {
+
+    }
+
+    public function testReadAPI()
+    {
+
+    }
 }
  

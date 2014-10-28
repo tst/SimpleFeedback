@@ -6,7 +6,7 @@
  * Time: 17:06
  */
 
-namespace SimpleFeedback;
+namespace SimpleFeedback\Responder;
 
 
 class PostFailureResponder {

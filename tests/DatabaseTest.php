@@ -6,14 +6,15 @@
  * Time: 13:45
  */
 
-use SimpleFeedback\Database;
+use SimpleFeedback\Database\Database;
 
 class DatabaseTest extends PHPUnit_Framework_TestCase {
     private $database;
 
     public function setUp()
     {
-        $connection = new \PDO('sqlite:../src/data.db');
+        $path = dirname(dirname(__FILE__)) . "/src/data.db";
+        $connection = new \PDO('sqlite:'.$path);
         $this->database = new Database($connection);
     }
 
@@ -29,7 +30,7 @@ class DatabaseTest extends PHPUnit_Framework_TestCase {
     public function testGetData()
     {
         $expected = array('IPAddress' => '127.0.0.1',
-                          'commentText' => 'Test');
+                          'commentText' => 'Hello');
         $returnedData = $this->database->getData();
         $this->assertEquals($returnedData[0], $expected);
     }

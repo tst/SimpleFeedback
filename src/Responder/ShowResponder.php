@@ -3,13 +3,13 @@
  * Created by PhpStorm.
  * User: tim
  * Date: 28.10.2014
- * Time: 17:06
+ * Time: 16:56
  */
 
-namespace SimpleFeedback;
+namespace SimpleFeedback\Responder;
 
 
-class PostSuccessResponder {
+class ShowResponder {
     private $output;
     public function setOutput($output)
     {
@@ -21,5 +21,4 @@ class PostSuccessResponder {
         header("Content-Type: application/json");
         echo $this->output;
     }
-
 } 

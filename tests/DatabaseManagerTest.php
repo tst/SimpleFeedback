@@ -6,7 +6,7 @@
  * Time: 14:33
  */
 
-use SimpleFeedback\DatabaseManager;
+use SimpleFeedback\Database\DatabaseManager;
 
 
 class DatabaseManagerTest extends PHPUnit_Framework_TestCase {
@@ -14,7 +14,7 @@ class DatabaseManagerTest extends PHPUnit_Framework_TestCase {
 
     public function setUp()
     {
-        $mockDatabase = $this->getMockBuilder("\\SimpleFeedback\\Database")
+        $mockDatabase = $this->getMockBuilder("\\SimpleFeedback\\Database\\Database")
             ->disableOriginalConstructor()
             ->getMock();
         $mockDatabase->expects($this->any())

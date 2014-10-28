@@ -6,7 +6,7 @@
  * Time: 16:48
  */
 
-namespace SimpleFeedback;
+namespace SimpleFeedback\Responder;
 
 
 class FileNotFoundResponder implements Responder {
