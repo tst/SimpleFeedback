@@ -10,6 +10,5 @@ namespace SimpleFeedback;
 
 require '../vendor/autoload.php';
 
-
 $action = new Action($_SERVER);
 $action->handleRequest();

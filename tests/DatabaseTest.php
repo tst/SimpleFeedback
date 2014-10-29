@@ -15,24 +15,37 @@ class DatabaseTest extends PHPUnit_Framework_TestCase {
     {
         $path = dirname(dirname(__FILE__)) . "/src/data.db";
         $connection = new \PDO('sqlite:'.$path);
-        $this->database = new Database($connection);
+        $this->database = Database($connection);
     }
 
-
-    public function testSaveData()
+    private function generateCommentObjects($message, $ip)
     {
-        $this->assertTrue($this->database->saveData("127.0.0.1", "Test"));
-        $this->assertFalse($this->database->saveData(false, false));
-        $this->assertFalse($this->database->saveData(false, "Test"));
-        $this->assertFalse($this->database->saveData("127.0.0.1", ""));
+        $comment = new \SimpleFeedback\Comment($message);
+        $comment->setIp($ip);
+        return $comment;
     }
+
+    public function testGoodSaveData()
+    {
+        $goodComment = $this->generateCommentObjects("Test", "127.0.0.1");
+        $this->assertTrue($this->database->saveData($goodComment));
+    }
+
+
 
     public function testGetData()
     {
-        $expected = array('IPAddress' => '127.0.0.1',
-                          'commentText' => 'Hello');
+        $expected = $this->generateCommentObjects("Hello", "127.0.0.1");
         $returnedData = $this->database->getData();
-        $this->assertEquals($returnedData[0], $expected);
+        $this->assertEquals($expected, $returnedData[0]);
+    }
+
+    /**
+     * @expectedException \BadMethodCallException
+     */
+    public function testBadSaveData()
+    {
+        $this->generateCommentObjects("", false);
     }
 
 }
