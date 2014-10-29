@@ -8,10 +8,8 @@
 
 namespace SimpleFeedback;
 
-
-use Doctrine\Instantiator\Exception\InvalidArgumentException;
-
-class Action {
+class Action
+{
     private $database;
     private $request;
     private $ipAddress;
@@ -34,7 +32,7 @@ class Action {
 
         parse_str($this->request['QUERY_STRING'], $parsedString);
 
-        if($method === "GET") {
+        if ($method === "GET") {
             if (!isset($parsedString['action'])) {
                 $this->handle404();
             } else {
@@ -72,7 +70,7 @@ class Action {
             $responder = new Responder\PostFailureResponder();
         }
 
-        if(!isset($responder)) {
+        if (!isset($responder)) {
             $success = $this->database->saveData($comment);
 
             if ($success === false) {
@@ -91,4 +89,4 @@ class Action {
         $responder = new Responder\FileNotFoundResponder();
         $responder->serve();
     }
-} 
+}

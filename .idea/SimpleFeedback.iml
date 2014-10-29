@@ -78,6 +78,7 @@
           <root url="phar://$MODULE_DIR$/vendor/phpdocumentor/fileset/tests/data/test.phar" />
           <root url="phar://$MODULE_DIR$/composer.phar" />
           <root url="phar://$MODULE_DIR$/vendor/pdepend/pdepend/src/site/rst/static_reflection/releases/staticReflection-0.1.1.phar" />
+          <root url="phar://$MODULE_DIR$/phing-latest.phar" />
         </CLASSES>
         <SOURCES>
           <root url="phar://$MODULE_DIR$/vendor/phpdocumentor/phpdocumentor/tests/data/test.phar" />
@@ -85,6 +86,7 @@
           <root url="phar://$MODULE_DIR$/vendor/phpdocumentor/fileset/tests/data/test.phar" />
           <root url="phar://$MODULE_DIR$/composer.phar" />
           <root url="phar://$MODULE_DIR$/vendor/pdepend/pdepend/src/site/rst/static_reflection/releases/staticReflection-0.1.1.phar" />
+          <root url="phar://$MODULE_DIR$/phing-latest.phar" />
         </SOURCES>
       </library>
     </orderEntry>

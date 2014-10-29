@@ -6,7 +6,6 @@
  * Time: 16:27
  */
 
-use SimpleFeedback\Action;
 use GuzzleHttp\Client;
 
 class ActionTest extends PHPUnit_Framework_TestCase {

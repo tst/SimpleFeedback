@@ -9,10 +9,11 @@
 namespace SimpleFeedback\Responder;
 
 
-class PostFailureResponder {
+class PostFailureResponder implements ResponderInterface
+{
     public function serve()
     {
         header("HTTP/1.1 400 Bad Request");
         exit;
     }
-} 
+}

@@ -9,7 +9,8 @@
 namespace SimpleFeedback;
 
 
-class Database {
+class Database
+{
     private $connection;
 
     /**
@@ -29,12 +30,11 @@ class Database {
      */
     public function saveData(Comment $comment)
     {
-        if($comment->validateObject() === false) {
+        if ($comment->validateObject() === false) {
             return false;
         }
 
-        $statement = $this->connection->prepare("INSERT INTO comments (IPAddress, commentText)
-                                         VALUES (:IpAddress, :commentText)");
+        $statement = $this->connection->prepare("INSERT INTO comments (IPAddress, commentText) VALUES (:IpAddress, :commentText)");
         $ipAddress = $comment->getIpAddress();
         $message = $comment->getMessage();
         $statement->bindParam(':IpAddress', $ipAddress, \PDO::PARAM_STR);
@@ -54,7 +54,7 @@ class Database {
         // TODO: think about using FETCH_OBJECT
         $commentArray = array();
 
-        while($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
             $comment = new Comment($row['commentText']);
             $comment->setIp($row['IPAddress']);
             $commentArray[] = $comment;
@@ -62,5 +62,6 @@ class Database {
 
         return $commentArray;
     }
+
 
 }

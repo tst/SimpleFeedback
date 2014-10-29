@@ -9,7 +9,8 @@
 namespace SimpleFeedback;
 
 
-class Comment {
+class Comment
+{
     protected $message;
     protected $ipAddress;
 
@@ -18,7 +19,7 @@ class Comment {
      */
     public function __construct($message)
     {
-        if(empty($message)) {
+        if (empty($message)) {
             throw new \BadMethodCallException;
         }
         $this->message = $message;
@@ -57,5 +58,4 @@ class Comment {
     {
         return $this->message;
     }
-
-} 
+}

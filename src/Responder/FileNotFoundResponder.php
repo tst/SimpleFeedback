@@ -9,11 +9,12 @@
 namespace SimpleFeedback\Responder;
 
 
-class FileNotFoundResponder implements Responder {
+class FileNotFoundResponder implements ResponderInterface
+{
     public function serve()
     {
         header("HTTP/1.0 404 Not Found");
         echo "File not found!";
         exit;
     }
-} 
+}

@@ -9,7 +9,8 @@
 namespace SimpleFeedback\Responder;
 
 
-class PostSuccessResponder {
+class PostSuccessResponder implements ResponderInterface
+{
     private $output;
     public function setOutput($output)
     {
@@ -21,5 +22,4 @@ class PostSuccessResponder {
         header("Content-Type: application/json");
         echo $this->output;
     }
-
-} 
+}

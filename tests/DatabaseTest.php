@@ -18,10 +18,10 @@ class DatabaseTest extends PHPUnit_Framework_TestCase {
         $this->database = new Database($connection);
     }
 
-    private function generateCommentObjects($message, $ip)
+    private function generateCommentObjects($message, $ipAddress)
     {
         $comment = new \SimpleFeedback\Comment($message);
-        $comment->setIp($ip);
+        $comment->setIp($ipAddress);
         return $comment;
     }
 

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="SimpleFeedback" default="build" basedir="." description="a simple feedback project">
+    <property name="buildDir" value="build"/>
+    <property name="srcDir" value="src"/>
+
+    <target name="clean">
+        <delete dir="${buildDir}" />
+        <mkdir dir="${buildDir}" />
+    </target>
+
+
+
+    <target name="documentation" depends="clean">
+        <phpdoc2 title="API Documentation"
+                 destdir="${buildDir}"
+                 template="responsive-twig">
+            <fileset dir="${srcDir}">
+                <include name="**/*.php" />
+            </fileset>
+        </phpdoc2>
+    </target>
+
+
+
+    <target name="build" depends="clean">
+        <echo msg="Copying to build directory..."/>
+        <copy todir="${buildDir}">
+            <fileset dir="${srcDir}">
+                <include name="*"/>
+                <exclude name="*.db"/>
+            </fileset>
+        </copy>
+
+    </target>
+
+</project>

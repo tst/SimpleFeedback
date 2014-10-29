@@ -14,7 +14,8 @@ namespace SimpleFeedback;
  * Takes care of encoding and decoding a comment from and to JSON
  * @package SimpleFeedback
  */
-class CommentCoder {
+class CommentCoder
+{
 
     /**
      * Used to convert an Comment Object to JSON

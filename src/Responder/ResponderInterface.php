@@ -9,6 +9,7 @@
 namespace SimpleFeedback\Responder;
 
 
-interface Responder {
+interface ResponderInterface
+{
     public function serve();
-} 
+}
