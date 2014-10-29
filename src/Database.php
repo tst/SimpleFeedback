@@ -6,10 +6,8 @@
  * Time: 13:21
  */
 
-namespace SimpleFeedback\Database;
+namespace SimpleFeedback;
 
-
-use SimpleFeedback\Comment;
 
 class Database {
     private $connection;

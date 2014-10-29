@@ -6,7 +6,7 @@
  * Time: 13:45
  */
 
-use SimpleFeedback\Database\Database;
+use SimpleFeedback\Database;
 
 class DatabaseTest extends PHPUnit_Framework_TestCase {
     private $database;
@@ -15,7 +15,7 @@ class DatabaseTest extends PHPUnit_Framework_TestCase {
     {
         $path = dirname(dirname(__FILE__)) . "/src/data.db";
         $connection = new \PDO('sqlite:'.$path);
-        $this->database = Database($connection);
+        $this->database = new Database($connection);
     }
 
     private function generateCommentObjects($message, $ip)
