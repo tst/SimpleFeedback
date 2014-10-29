@@ -28,6 +28,12 @@ class CommentCoderTest extends PHPUnit_Framework_TestCase {
 
         $comment = CommentCoder::decode($json);
         $this->assertEquals($expected, $comment);
+
+        $json = '{"commentMessage":"Test"}';
+        $expected = new \SimpleFeedback\Comment("Test");
+
+        $comment = CommentCoder::decode($json);
+        $this->assertEquals($expected, $comment);
     }
 
     /**

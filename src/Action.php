@@ -9,17 +9,17 @@
 namespace SimpleFeedback;
 
 
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
+
 class Action {
+    private $database;
     private $request;
     private $ipAddress;
-    private $databaseManager;
 
-    public function __construct($request)
+    public function __construct($database, $request)
     {
+        $this->database = $database;
         $this->request = $request;
-        $pdo = new \PDO('sqlite:data.db');
-        $databaseManagerFactory = new Domain\DatabaseManagerFactory($pdo);
-        $this->databaseManager = $databaseManagerFactory->getDatabaseManager();
     }
 
 
@@ -58,19 +58,30 @@ class Action {
     protected function handleShow()
     {
         $responder = new Responder\ShowResponder();
-        $outputData = $this->databaseManager->getData();
+        $outputData = $this->database->getData();
         $responder->setOutput($outputData);
         $responder->serve();
     }
 
     protected function handlePost($input)
     {
-        $success = $this->databaseManager->saveJSONData($input, $this->ipAddress);
-        if ($success === false) {
+        try {
+            $comment = CommentCoder::decode($input);
+            $comment->setIp($this->ipAddress);
+        } catch (\InvalidArgumentException $e) {
             $responder = new Responder\PostFailureResponder();
-        } else {
-            $responder = new Responder\PostSuccessResponder();
-            $responder->setOutput($success);
+        }
+
+        if(!isset($responder)) {
+            $success = $this->database->saveData($comment);
+
+            if ($success === false) {
+                $responder = new Responder\PostFailureResponder();
+            } else {
+                $responder = new Responder\PostSuccessResponder();
+                $jsonOutput = CommentCoder::encode($comment);
+                $responder->setOutput($jsonOutput);
+            }
         }
         $responder->serve();
     }

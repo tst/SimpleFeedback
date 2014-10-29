@@ -9,6 +9,8 @@
 namespace SimpleFeedback\Responder;
 
 
+use SimpleFeedback\CommentCoder;
+
 class ShowResponder {
     private $output;
     public function setOutput($output)
@@ -19,6 +21,7 @@ class ShowResponder {
     public function serve()
     {
         header("Content-Type: application/json");
-        echo $this->output;
+        $comments = array_map(function($x){return CommentCoder::encode($x);}, $this->output);
+        echo json_encode($comments);
     }
 } 

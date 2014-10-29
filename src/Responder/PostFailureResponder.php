@@ -12,7 +12,7 @@ namespace SimpleFeedback\Responder;
 class PostFailureResponder {
     public function serve()
     {
-        header("400 Bad Request");
+        header("HTTP/1.1 400 Bad Request");
         exit;
     }
 } 

@@ -38,13 +38,15 @@ class CommentCoder {
     {
         $inputArray = json_decode($inputJSON, true);
 
-        if(!isset($inputArray['commentMessage']) && !isset($inputArray['ipAddress'])) {
-            throw new \InvalidArgumentException("Either commentMessage or ipAddress missing!");
+        if(!isset($inputArray['commentMessage'])) {
+            throw new \InvalidArgumentException("The variable commentMessage is missing!");
         }
 
         $comment = new Comment($inputArray['commentMessage']);
-        $comment->setIp($inputArray['ipAddress']);
 
+        if(isset($inputArray['ipAddress'])) {
+            $comment->setIp($inputArray['ipAddress']);
+        }
         return $comment;
     }
 
