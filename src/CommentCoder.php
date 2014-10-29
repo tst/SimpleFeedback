@@ -24,7 +24,7 @@ class CommentCoder
      */
     public static function encode(Comment $comment)
     {
-        $inputArray = Array('commentMessage' => $comment->getMessage(),
+        $inputArray = array('commentMessage' => $comment->getMessage(),
                             'ipAddress' => $comment->getIpAddress());
         $jsonOutput = json_encode($inputArray);
         return $jsonOutput;
@@ -39,16 +39,15 @@ class CommentCoder
     {
         $inputArray = json_decode($inputJSON, true);
 
-        if(!isset($inputArray['commentMessage'])) {
+        if (!isset($inputArray['commentMessage'])) {
             throw new \InvalidArgumentException("The variable commentMessage is missing!");
         }
 
         $comment = new Comment($inputArray['commentMessage']);
 
-        if(isset($inputArray['ipAddress'])) {
+        if (isset($inputArray['ipAddress'])) {
             $comment->setIp($inputArray['ipAddress']);
         }
         return $comment;
     }
-
 }

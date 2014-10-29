@@ -21,8 +21,12 @@ class ShowResponder implements ResponderInterface
 
     public function serve()
     {
-        header ("Content-Type: application/json");
-        $comments = array_map(function($comment){return CommentCoder::encode($comment);}, $this->output);
+        header("Content-Type: application/json");
+        $encodeFunction = function ($comment) {
+            return CommentCoder::encode($comment);
+        };
+
+        $comments = array_map($encodeFunction, $this->output);
         echo json_encode($comments);
     }
 }

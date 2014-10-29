@@ -8,7 +8,8 @@
 
 use SimpleFeedback\Database;
 
-class DatabaseTest extends PHPUnit_Framework_TestCase {
+class DatabaseTest extends PHPUnit_Framework_TestCase
+{
     private $database;
 
     public function setUp()
@@ -47,6 +48,4 @@ class DatabaseTest extends PHPUnit_Framework_TestCase {
     {
         $this->generateCommentObjects("", false);
     }
-
 }
- 

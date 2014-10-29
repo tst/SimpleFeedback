@@ -33,8 +33,8 @@ class Database
         if ($comment->validateObject() === false) {
             return false;
         }
-
-        $statement = $this->connection->prepare("INSERT INTO comments (IPAddress, commentText) VALUES (:IpAddress, :commentText)");
+        $sqlQuery = "INSERT INTO comments (IPAddress, commentText) VALUES (:IpAddress, :commentText);";
+        $statement = $this->connection->prepare($sqlQuery);
         $ipAddress = $comment->getIpAddress();
         $message = $comment->getMessage();
         $statement->bindParam(':IpAddress', $ipAddress, \PDO::PARAM_STR);
@@ -54,7 +54,7 @@ class Database
         // TODO: think about using FETCH_OBJECT
         $commentArray = array();
 
-        while ($row = $statement->fetch(\PDO::FETCH_ASSOC)) {
+        foreach ($statement->fetchAll(\PDO::FETCH_ASSOC) as $row) {
             $comment = new Comment($row['commentText']);
             $comment->setIp($row['IPAddress']);
             $commentArray[] = $comment;
@@ -62,6 +62,4 @@ class Database
 
         return $commentArray;
     }
-
-
 }

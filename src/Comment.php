@@ -35,8 +35,8 @@ class Comment
     }
 
     /**
-     * Checks if both the ipAddress and message aren't empty
-     * @return bool Returns true if the ipAddress and message aren't empty
+     * Checks if both the ipAddress and message are not empty
+     * @return bool Returns true if the ipAddress and message are not empty
      */
     public function validateObject()
     {

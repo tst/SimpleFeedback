@@ -8,7 +8,8 @@
 
 use SimpleFeedback\CommentCoder;
 
-class CommentCoderTest extends PHPUnit_Framework_TestCase {
+class CommentCoderTest extends PHPUnit_Framework_TestCase
+{
 
     public function testEncoder()
     {
@@ -41,7 +42,4 @@ class CommentCoderTest extends PHPUnit_Framework_TestCase {
     {
         CommentCoder::decode("");
     }
-
-
 }
- 

@@ -8,7 +8,8 @@
 
 use GuzzleHttp\Client;
 
-class ActionTest extends PHPUnit_Framework_TestCase {
+class ActionTest extends PHPUnit_Framework_TestCase
+{
 
     /**
      * @expectedException \GuzzleHttp\Exception\RequestException
@@ -34,8 +35,10 @@ class ActionTest extends PHPUnit_Framework_TestCase {
     public function testPost()
     {
         $client = new Client();
-        $response = $client->post('http://localhost:63342/SimpleFeedback/src/index.php',
-                            array('body' => '{"commentMessage": "Test123"}'));
+        $response = $client->post(
+            'http://localhost:63342/SimpleFeedback/src/index.php',
+            array('body' => '{"commentMessage": "Test123"}')
+        );
         $body = $response->getBody()->read(1024);
         $expected = '{"commentMessage":"Test123","ipAddress":"127.0.0.1"}';
         $this->assertEquals($expected, $body);
@@ -45,21 +48,22 @@ class ActionTest extends PHPUnit_Framework_TestCase {
     {
         try {
             $client = new Client();
-            $client->post('http://localhost:63342/SimpleFeedback/src/index.php',
-                array('body' => '{"Nope": "Test123"}'));
+            $client->post(
+                'http://localhost:63342/SimpleFeedback/src/index.php',
+                array('body' => '{"Nope": "Test123"}')
+            );
         } catch (\GuzzleHttp\Exception\RequestException $e) {
             $this->assertEquals(400, $e->getResponse()->getStatusCode());
         }
 
         try {
             $client = new Client();
-            $client->post('http://localhost:63342/SimpleFeedback/src/index.php',
-                array('body' => '{"commentMessage": ""}'));
+            $client->post(
+                'http://localhost:63342/SimpleFeedback/src/index.php',
+                array('body' => '{"commentMessage": ""}')
+            );
         } catch (\GuzzleHttp\Exception\RequestException $e) {
             $this->assertEquals(400, $e->getResponse()->getStatusCode());
         }
     }
-
-
 }
- 

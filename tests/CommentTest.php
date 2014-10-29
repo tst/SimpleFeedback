@@ -8,7 +8,8 @@
 
 use SimpleFeedback\Comment;
 
-class CommentTest extends PHPUnit_Framework_TestCase {
+class CommentTest extends PHPUnit_Framework_TestCase
+{
 
 
     /**
@@ -37,7 +38,4 @@ class CommentTest extends PHPUnit_Framework_TestCase {
         $comment->setIp("127.0.0.1");
         $this->assertEquals("127.0.0.1", $comment->getIpAddress());
     }
-
-
 }
- 

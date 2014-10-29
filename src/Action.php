@@ -14,7 +14,7 @@ class Action
     private $request;
     private $ipAddress;
 
-    public function __construct($database, $request)
+    public function __construct(Database $database, $request)
     {
         $this->database = $database;
         $this->request = $request;
@@ -63,6 +63,7 @@ class Action
 
     protected function handlePost($input)
     {
+        $comment = null;
         try {
             $comment = CommentCoder::decode($input);
             $comment->setIp($this->ipAddress);
