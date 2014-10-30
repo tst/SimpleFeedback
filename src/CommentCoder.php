@@ -30,6 +30,21 @@ class CommentCoder
         return $jsonOutput;
     }
 
+    /** Is used to encode an array of Comment objects
+     * @param array[Comments] $comments An array of comment objects
+     * @return string All objects encoded in JSON
+     */
+    public static function encodeArray(array $comments) {
+        $commentAsArray = array();
+        foreach($comments as $comment) {
+            $commentField = array('commentMessage' => $comment->getMessage(),
+                'ipAddress' => $comment->getIpAddress());
+            $commentAsArray[] = $commentField;
+        }
+        $jsonOutput = json_encode($commentAsArray);
+        return $jsonOutput;
+    }
+
     /**
      * Used to decode a JSON string to an Comment object
      * @param $inputJSON string JSON representation of a Comment object

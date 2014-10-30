@@ -40,4 +40,17 @@ class CommentCoderTest extends PHPUnit_Framework_TestCase
     {
         CommentCoder::decode("");
     }
+
+    public function testEncoderArray()
+    {
+        $comments = array(
+            \SimpleFeedback\CommentFactory::createWithIp("Hi", "127.0.0.1"),
+            \SimpleFeedback\CommentFactory::createWithIp("Hello", "127.0.0.2")
+            );
+        $expected = '[{"commentMessage":"Hi","ipAddress":"127.0.0.1"},'
+                . '{"commentMessage":"Hello","ipAddress":"127.0.0.2"}]';
+
+        $json = CommentCoder::encodeArray($comments);
+        $this->assertEquals($expected, $json);
+    }
 }
