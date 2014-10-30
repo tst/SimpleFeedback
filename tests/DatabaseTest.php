@@ -19,16 +19,9 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
         $this->database = new Database($connection);
     }
 
-    private function generateCommentObjects($message, $ipAddress)
-    {
-        $comment = new \SimpleFeedback\Comment($message);
-        $comment->setIp($ipAddress);
-        return $comment;
-    }
-
     public function testGoodSaveData()
     {
-        $goodComment = $this->generateCommentObjects("Test", "127.0.0.1");
+        $goodComment =  \SimpleFeedback\CommentFactory::createWithIp("Test", "127.0.0.1");
         $this->assertTrue($this->database->saveData($goodComment));
     }
 
@@ -36,7 +29,7 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
 
     public function testGetData()
     {
-        $expected = $this->generateCommentObjects("Hello", "127.0.0.1");
+        $expected = \SimpleFeedback\CommentFactory::createWithIp("Hello", "127.0.0.1");
         $returnedData = $this->database->getData();
         $this->assertEquals($expected, $returnedData[0]);
     }
@@ -46,6 +39,6 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
      */
     public function testBadSaveData()
     {
-        $this->generateCommentObjects("", false);
+        \SimpleFeedback\CommentFactory::createWithIp("", false);
     }
 }

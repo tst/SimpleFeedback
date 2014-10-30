@@ -55,8 +55,7 @@ class Database
         $commentArray = array();
 
         foreach ($statement->fetchAll(\PDO::FETCH_ASSOC) as $row) {
-            $comment = new Comment($row['commentText']);
-            $comment->setIp($row['IPAddress']);
+            $comment = CommentFactory::createWithIp($row['commentText'], $row['IPAddress']);
             $commentArray[] = $comment;
         }
 
