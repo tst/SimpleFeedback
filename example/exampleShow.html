@@ -2,10 +2,28 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
-    <!-- TODO: Create example frontend for posting and showing, Angular? jQuery? -->
+    <title>Show Feedback</title>
+    <script type="application/javascript" src="jquery-1.11.1.min.js"></script>
+    <script type="application/javascript">
+        $(document).ready(function() {
+
+            var addItem = function(comment) {
+                var liElement = "<li>" + comment.ipAddress + " said: " + comment.commentMessage + "</li>";
+                $("#commentList").append(liElement);
+
+            };
+
+            $.getJSON("http://localhost:63342/SimpleFeedback/src/index.php?action=show", function (data) {
+                $.each(data, function(key, value) {
+                    addItem(value);
+                })
+            });
+        });
+    </script>
 </head>
 <body>
-
+    <div>
+        <ul id="commentList"></ul>
+    </div>
 </body>
 </html>

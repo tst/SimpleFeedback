@@ -69,6 +69,8 @@ class Action
             $comment->setIp($this->ipAddress);
         } catch (\InvalidArgumentException $e) {
             $responder = new Responder\PostFailureResponder();
+        } catch(\BadMethodCallException $e) {
+            $responder = new Responder\PostFailureResponder();
         }
 
         if (!isset($responder)) {

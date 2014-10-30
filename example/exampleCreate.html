@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="application/javascript" src="jquery-1.11.1.min.js"></script>
+    <script type="application/javascript">
+        $(document).ready(function() {
+
+            var onError = function(jqXHR, textStatus, errorThrown) {
+                alert("Something went wrong!");
+            };
+            var onSuccess = function(data, textStatus, jqXHR) {
+                alert("Thanks for submitting your comment!");
+            };
+
+            var getData = function() {
+                return JSON.stringify({commentMessage: $("#commentMessage").val()});
+            };
+
+            var sendData = function() {
+                $.ajax({
+                    url: "http://localhost:63342/SimpleFeedback/src/index.php",
+                    data: getData(),
+                    dataType: "json",
+                    error: onError,
+                    success: onSuccess,
+                    type: "POST"
+                });
+            };
+
+            $("#submitComment").submit(function( event ) {
+                getData();
+                sendData();
+                event.preventDefault();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <form id="submitComment">
+                <textarea name="commentMessage" id="commentMessage"></textarea>
+                <input type="submit" value="Submit comment!"></input>
+        </form>
+    </div>
+</body>
+</html>

@@ -33,6 +33,8 @@ class CommentCoderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $comment);
     }
 
+
+
     /**
      * @expectedException \InvalidArgumentException
      */
@@ -52,5 +54,14 @@ class CommentCoderTest extends PHPUnit_Framework_TestCase
 
         $json = CommentCoder::encodeArray($comments);
         $this->assertEquals($expected, $json);
+    }
+
+
+    /**
+     * @expectedException \BadMethodCAllException
+     */
+    public function testEmptyMessage()
+    {
+        CommentCoder::decode('{"commentMessage":""}');
     }
 }

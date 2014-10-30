@@ -58,6 +58,7 @@ class CommentCoder
             throw new \InvalidArgumentException("The variable commentMessage is missing!");
         }
 
+
         if (isset($inputArray['ipAddress'])) {
             $comment = CommentFactory::createWithIp($inputArray['commentMessage'], $inputArray['ipAddress']);
         } else {
