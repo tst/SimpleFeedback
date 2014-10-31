@@ -12,12 +12,13 @@ class Action
 {
     private $database;
     private $request;
-    private $ipAddress;
+    private $router;
 
-    public function __construct(Database $database, $request)
+    public function __construct(Database $database, Request $request, Router $router)
     {
         $this->database = $database;
         $this->request = $request;
+        $this->router = $router;
     }
 
 
@@ -26,31 +27,17 @@ class Action
      */
     public function handleRequest()
     {
-        // TODO: Fix this mess
-        $this->ipAddress = $this->request['REMOTE_ADDR'];
-        $method = $this->request['REQUEST_METHOD'];
+        $method = $this->request->getRequestMethod();
+        $query = $this->request->getQuery();
 
-        parse_str($this->request['QUERY_STRING'], $parsedString);
-
-        if ($method === "GET") {
-            if (!isset($parsedString['action'])) {
-                $this->handle404();
-            } else {
-                switch ($parsedString['action']) {
-                    case 'show':
-                        $this->handleShow();
-                        break;
-                    default:
-                        $this->handle404();
-                        break;
-                }
-            }
-        } elseif ($method === "POST") {
-            $input = file_get_contents('php://input');
+        $this->router->add("default", "default", function() { $this->handle404(); });
+        $this->router->add("GET", "action=show", function()  { $this->handleShow(); });
+        $this->router->add("POST", "default", function() {
+            $input = file_get_contents("php://input");
             $this->handlePost($input);
-        } else {
-            $this->handle404();
-        }
+        });
+
+        $this->router->route($method, $query);
     }
 
     protected function handleShow()
@@ -66,7 +53,7 @@ class Action
         $comment = null;
         try {
             $comment = CommentCoder::decode($input);
-            $comment->setIp($this->ipAddress);
+            $comment->setIp($this->request->getIpAddress());
         } catch (\InvalidArgumentException $e) {
             $responder = new Responder\PostFailureResponder();
         } catch(\BadMethodCallException $e) {

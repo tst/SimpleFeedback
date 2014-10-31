@@ -52,6 +52,7 @@ class CommentCoder
      */
     public static function decode($inputJSON)
     {
+        // TODO: Take care of possible XSS!
         $inputArray = json_decode($inputJSON, true);
 
         if (!isset($inputArray['commentMessage'])) {

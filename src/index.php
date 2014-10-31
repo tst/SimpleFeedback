@@ -12,6 +12,8 @@ require '../vendor/autoload.php';
 
 $pdo = new \PDO('sqlite:data.db');
 $database = new Database($pdo);
+$request = new Request($_SERVER);
+$router = new Router();
 
-$action = new Action($database, $_SERVER);
+$action = new Action($database, $request, $router);
 $action->handleRequest();
