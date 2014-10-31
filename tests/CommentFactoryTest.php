@@ -31,6 +31,18 @@ class CommentFactoryTest extends PHPUnit_Framework_TestCase
         $this->assertEquals("Test", $comment->getMessage());
         $this->assertTrue($comment->validateObject());
     }
+
+    public function testXSS()
+    {
+        $comment = \SimpleFeedback\CommentFactory::createMinimal("<script>alert('\"')");
+        $expected = '&lt;script&gt;alert(&#039;&quot;&#039;)';
+        $this->assertEquals($expected, $comment->getMessage());
+
+        $comment = \SimpleFeedback\CommentFactory::createWithIp("<script>alert('\"')", "127.0.0.1");
+        $this->assertEquals($expected, $comment->getMessage());
+    }
+
+
 }
 
  

@@ -15,8 +15,9 @@ class CommentFactory
      * @param $message string A message
      * @return Comment A new instance
      */
-    public static function createMinimal($message)
+    public static function createMinimal($dirtyMessage)
     {
+        $message = htmlentities($dirtyMessage, ENT_QUOTES, "UTF-8");
         $instance = new Comment($message);
 
         return $instance;
