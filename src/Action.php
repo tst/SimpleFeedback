@@ -52,7 +52,7 @@ class Action
     {
         $comment = null;
         try {
-            $comment = CommentCoder::decode($input);
+            $comment = Comment\CommentCoder::decode($input);
             $comment->setIp($this->request->getIpAddress());
         } catch (\InvalidArgumentException $e) {
             $responder = new Responder\PostFailureResponder();
@@ -67,7 +67,7 @@ class Action
                 $responder = new Responder\PostFailureResponder();
             } else {
                 $responder = new Responder\PostSuccessResponder();
-                $jsonOutput = CommentCoder::encode($comment);
+                $jsonOutput = Comment\CommentCoder::encode($comment);
                 $responder->setOutput($jsonOutput);
             }
         }

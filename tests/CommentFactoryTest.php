@@ -6,6 +6,8 @@
  * Time: 10:52
  */
 
+use \SimpleFeedback\Commen;
+
 class CommentFactoryTest extends PHPUnit_Framework_TestCase
 {
 
@@ -14,19 +16,19 @@ class CommentFactoryTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateMinimalException()
     {
-        \SimpleFeedback\CommentFactory::createMinimal("");
+        \SimpleFeedback\Comment\CommentFactory::createMinimal("");
     }
 
     public function testCreateMinimal()
     {
-        $comment = \SimpleFeedback\CommentFactory::createMinimal("Test");
+        $comment = \SimpleFeedback\Comment\CommentFactory::createMinimal("Test");
         $this->assertEquals("Test", $comment->getMessage());
         $this->assertFalse($comment->validateObject());
     }
 
     public function testCreateWithIp()
     {
-        $comment = \SimpleFeedback\CommentFactory::createWithIp("Test", "127.0.0.1");
+        $comment = \SimpleFeedback\Comment\CommentFactory::createWithIp("Test", "127.0.0.1");
         $this->assertEquals("127.0.0.1", $comment->getIpAddress());
         $this->assertEquals("Test", $comment->getMessage());
         $this->assertTrue($comment->validateObject());
@@ -34,11 +36,11 @@ class CommentFactoryTest extends PHPUnit_Framework_TestCase
 
     public function testXSS()
     {
-        $comment = \SimpleFeedback\CommentFactory::createMinimal("<script>alert('\"')");
+        $comment = \SimpleFeedback\Comment\CommentFactory::createMinimal("<script>alert('\"')");
         $expected = '&lt;script&gt;alert(&#039;&quot;&#039;)';
         $this->assertEquals($expected, $comment->getMessage());
 
-        $comment = \SimpleFeedback\CommentFactory::createWithIp("<script>alert('\"')", "127.0.0.1");
+        $comment = \SimpleFeedback\Comment\CommentFactory::createWithIp("<script>alert('\"')", "127.0.0.1");
         $this->assertEquals($expected, $comment->getMessage());
     }
 

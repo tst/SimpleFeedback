@@ -6,7 +6,7 @@
  * Time: 10:44
  */
 
-namespace SimpleFeedback;
+namespace SimpleFeedback\Comment;
 
 
 class Comment

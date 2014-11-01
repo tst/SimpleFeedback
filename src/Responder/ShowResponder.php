@@ -9,7 +9,7 @@
 namespace SimpleFeedback\Responder;
 
 
-use SimpleFeedback\CommentCoder;
+use SimpleFeedback\Comment\CommentCoder;
 
 class ShowResponder implements ResponderInterface
 {

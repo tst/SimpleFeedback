@@ -1,4 +1,4 @@
 vendor/*
 build
 composer.phar
-phing-latest.phar
+src/data.sqlite

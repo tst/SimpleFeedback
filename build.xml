@@ -1,18 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="SimpleFeedback" default="build" basedir="." description="a simple feedback project">
+<project name="SimpleFeedback" default="build">
     <property name="buildDir" value="build"/>
     <property name="srcDir" value="src"/>
 
-    <target name="clean">
+    <target name="setupDirs">
         <delete dir="${buildDir}" />
         <mkdir dir="${buildDir}" />
+        <mkdir dir="${buildDir}/docs" />
+        <mkdir dir="${buildDir}/docs/phpdocs" />
+        <mkdir dir="${buildDir}/docs/codingstandards" />
+        <mkdir dir="${buildDir}/docs/phpunit" />
+    </target>
+
+    <target name="codesniffer" depends="setupDirs">
+        <phpcodesniffer
+                standard="PSR2"
+                showSniffs="true"
+                showWarnings="true"
+                docGenerator="HTML"
+                docFile="${buildDir}/docs/codingstandards/Codingstandards.html">
+            <fileset dir="${srcDir}">
+                <include name="**/*.php"/>
+            </fileset>
+            <formatter type="full" usefile="false"/>
+        </phpcodesniffer>
+    </target>
+
+    <!-- TODO: Get that fixed so that it works with composer
+    <target name="phpdepend" depends="codesniffer">
+        <phpdepend>
+            <fileset dir="${srcDir}">
+                <include name="**/*.php" />
+            </fileset>
+            <logger type="jdepend-xml" outfile="${buildDir}/docs/jdepend.xml"/>
+            <analyzer type="coderank-mode" value="method"/>
+        </phpdepend>
+    </target> -->
+
+    <!-- TODO: Get that fixed so that it works with composer
+    <target name="phpmd">
+        <phpmd>
+            <fileset dir="${srcDir}">
+                <include name="**/*.php" />
+            </fileset>
+            <formatter type="text" outfile="${buildDir}/docs/pmd.xml"/>
+        </phpmd>
+    </target>-->
+
+
+    <target name="phpunit" depends="codesniffer">
+        <phpunit codecoverage="false" haltonfailure="true" haltonerror="true" bootstrap="vendor/autoload.php">
+            <formatter todir="${buildDir}/docs/phpunit" type="xml"/>
+            <batchtest>
+                <fileset dir="tests">
+                    <include name="**/*Test*.php"/>
+                </fileset>
+            </batchtest>
+        </phpunit>
+        <phpunitreport infile="${buildDir}/docs/phpunit/testsuites.xml"
+                       format="frames"
+                       todir="${buildDir}/docs/phpunit"
+                       />
     </target>
 
 
-
-    <target name="documentation" depends="clean">
+    <target name="documentation" depends="phpunit">
+        <includepath classpath="./vendor/phpdocumentor" />
         <phpdoc2 title="API Documentation"
-                 destdir="${buildDir}"
+                 destdir="${buildDir}/docs/phpdocs"
                  template="responsive-twig">
             <fileset dir="${srcDir}">
                 <include name="**/*.php" />
@@ -21,16 +76,24 @@
     </target>
 
 
+    <target name="database" depends="documentation">
+        <pdosqlexec url="sqlite:${buildDir}/data.sqlite">
+            <fileset dir="${srcDir}">
+                <include name="*.sql"/>
+            </fileset>
+        </pdosqlexec>
+    </target>
 
-    <target name="build" depends="clean">
+
+    <target name="build" depends="database">
         <echo msg="Copying to build directory..."/>
         <copy todir="${buildDir}">
             <fileset dir="${srcDir}">
-                <include name="*"/>
-                <exclude name="*.db"/>
+                <include name="**/*"/>
+                <exclude name="*.sqlite"/>
+                <exclude name="*.sql"/>
             </fileset>
         </copy>
-
     </target>
 
 </project>

@@ -6,7 +6,7 @@
  * Time: 10:49
  */
 
-use SimpleFeedback\Comment;
+use SimpleFeedback\Comment\Comment;
 
 class CommentTest extends PHPUnit_Framework_TestCase
 {

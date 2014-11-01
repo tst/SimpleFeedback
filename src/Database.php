@@ -25,10 +25,10 @@ class Database
     /**
      * Checks whether the comment object is valid (returns false it not) and saves
      * the Object's contents into the database
-     * @param Comment $comment a Comment object
+     * @param Comment\Comment $comment a Comment object
      * @return bool True if data was saved, False if not.
      */
-    public function saveData(Comment $comment)
+    public function saveData(Comment\Comment $comment)
     {
         if ($comment->validateObject() === false) {
             return false;
@@ -44,8 +44,8 @@ class Database
     }
 
     /**
-     * @return \SimpleFeedback\Comment Returns a Comment object
-     * @see \SimpleFeedback\Comment
+     * @return \SimpleFeedback\Comment\Comment Returns a Comment object
+     * @see \SimpleFeedback\Comment\Comment
      */
     public function getData()
     {
@@ -55,7 +55,7 @@ class Database
         $commentArray = array();
 
         foreach ($statement->fetchAll(\PDO::FETCH_ASSOC) as $row) {
-            $comment = CommentFactory::createWithIp($row['commentText'], $row['IPAddress']);
+            $comment = Comment\CommentFactory::createWithIp($row['commentText'], $row['IPAddress']);
             $commentArray[] = $comment;
         }
 

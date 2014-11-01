@@ -10,7 +10,7 @@ namespace SimpleFeedback;
 
 require '../vendor/autoload.php';
 
-$pdo = new \PDO('sqlite:data.db');
+$pdo = new \PDO('sqlite:data.sqlite');
 $database = new Database($pdo);
 $request = new Request($_SERVER);
 $router = new Router();

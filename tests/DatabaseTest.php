@@ -14,14 +14,14 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $path = dirname(dirname(__FILE__)) . "/src/data.db";
+        $path = dirname(dirname(__FILE__)) . "/src/data.sqlite";
         $connection = new \PDO('sqlite:'.$path);
         $this->database = new Database($connection);
     }
 
     public function testGoodSaveData()
     {
-        $goodComment =  \SimpleFeedback\CommentFactory::createWithIp("Test", "127.0.0.1");
+        $goodComment =  \SimpleFeedback\Comment\CommentFactory::createWithIp("Test", "127.0.0.1");
         $this->assertTrue($this->database->saveData($goodComment));
     }
 
@@ -29,7 +29,7 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
 
     public function testGetData()
     {
-        $expected = \SimpleFeedback\CommentFactory::createWithIp("Hello", "127.0.0.1");
+        $expected = \SimpleFeedback\Comment\CommentFactory::createWithIp("Hello", "127.0.0.1");
         $returnedData = $this->database->getData();
         $this->assertEquals($expected, $returnedData[0]);
     }
@@ -39,6 +39,6 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
      */
     public function testBadSaveData()
     {
-        \SimpleFeedback\CommentFactory::createWithIp("", false);
+        \SimpleFeedback\Comment\CommentFactory::createWithIp("", false);
     }
 }
