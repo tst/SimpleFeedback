@@ -1,4 +1,5 @@
 vendor/*
 build
 composer.phar
-src/data.sqlite
+src/data/data.sqlite
+.idea

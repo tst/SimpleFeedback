@@ -1,21 +1,43 @@
 # SimpleFeedback - a super simple feedback backend written in PHP
 
+
+## Still in development! 
+
+
 ## Description
 
 TODO: Write description
 
 ## Installation
 
-TODO: Write about requirements, composer, build with phing, etc.
+* Install dependencies with composer (Commandline: `php composer.phar install`) -- TODO: integrate in build.xml?
+* Run build with phing (Commandline: `phing`)
+* Deploy `/build`
 
 ## Usage
 
 ### Example
 
-TODO: Write about /example
+I've written two super simple examples on how to interact with the software in `/example`. Here's a short description 
+of the API.
+
+| Method  | Endpoint                | Return               | Send                                | 
+|:--------|:------------------------|:---------------------|:------------------------------------|
+| GET     | /index.php?action=show  | All messages in JSON |                                     | 
+| POST    | /index.php              | The message in JSON  | `{"commentMessage":"your message"}` | 
+
+
+And here's an example of the JSON format:
+
+    {
+        "commentMessage": "Hello, here's my comment",
+        "ipAddress": "127.0.0.1"
+    }
+
 
 
 ## Requests / Questions / PRs
 
-If you have any requests or actions feel free to open an issue. I'm willing to accept pull requests!
+If you have any requests or actions feel free to open an issue. If you want to contribute, just fork and open a
+pull request!
 

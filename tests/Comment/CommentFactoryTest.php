@@ -6,7 +6,7 @@
  * Time: 10:52
  */
 
-use \SimpleFeedback\Commen;
+use SimpleFeedback\Comment;
 
 class CommentFactoryTest extends PHPUnit_Framework_TestCase
 {
@@ -43,8 +43,4 @@ class CommentFactoryTest extends PHPUnit_Framework_TestCase
         $comment = \SimpleFeedback\Comment\CommentFactory::createWithIp("<script>alert('\"')", "127.0.0.1");
         $this->assertEquals($expected, $comment->getMessage());
     }
-
-
 }
-
- 

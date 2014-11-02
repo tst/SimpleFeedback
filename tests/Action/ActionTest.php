@@ -27,7 +27,7 @@ class ActionTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(200, $response->getStatusCode());
 
-        $expected = Array(
+        $expected = array(
             "commentMessage" => "Hello",
             "ipAddress" => "127.0.0.1"
         );

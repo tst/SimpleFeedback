@@ -6,7 +6,7 @@
  * Time: 13:45
  */
 
-use SimpleFeedback\Database;
+use SimpleFeedback\Comment\CommentDatabase;
 
 class DatabaseTest extends PHPUnit_Framework_TestCase
 {
@@ -14,9 +14,10 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $path = dirname(dirname(__FILE__)) . "/src/data.sqlite";
+        // TODO: Create single testing database and fill it up with data and tear it down afterwards
+        $path = dirname(dirname(dirname(__FILE__))) . "/src/data/data.sqlite";
         $connection = new \PDO('sqlite:'.$path);
-        $this->database = new Database($connection);
+        $this->database = new CommentDatabase($connection);
     }
 
     public function testGoodSaveData()

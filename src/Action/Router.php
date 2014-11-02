@@ -6,10 +6,10 @@
  * Time: 16:54
  */
 
-namespace SimpleFeedback;
+namespace SimpleFeedback\Action;
 
 
-class Router 
+class Router
 {
     protected $routes;
 
@@ -19,7 +19,7 @@ class Router
      * @param string   $query  A query string, e.g. "foo=bar"
      * @param callable $function A function which is called when routing matches
      */
-    public function add($method, $query, Callable $function)
+    public function add($method, $query, callable $function)
     {
         $this->routes[$method][$query] = $function;
     }
@@ -47,5 +47,4 @@ class Router
 
 
     }
-
-} 
+}

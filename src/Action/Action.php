@@ -6,7 +6,11 @@
  * Time: 16:27
  */
 
-namespace SimpleFeedback;
+namespace SimpleFeedback\Action;
+
+use SimpleFeedback\Comment\CommentDatabase;
+use SimpleFeedback\Comment\CommentCoder;
+use SimpleFeedback\Responder;
 
 class Action
 {
@@ -14,7 +18,7 @@ class Action
     private $request;
     private $router;
 
-    public function __construct(Database $database, Request $request, Router $router)
+    public function __construct(CommentDatabase $database, Request $request, Router $router)
     {
         $this->database = $database;
         $this->request = $request;
@@ -30,9 +34,14 @@ class Action
         $method = $this->request->getRequestMethod();
         $query = $this->request->getQuery();
 
-        $this->router->add("default", "default", function() { $this->handle404(); });
-        $this->router->add("GET", "action=show", function()  { $this->handleShow(); });
-        $this->router->add("POST", "default", function() {
+        $this->router->add("default", "default", function () {
+            $this->handle404();
+        });
+
+        $this->router->add("GET", "action=show", function () {
+            $this->handleShow();
+        });
+        $this->router->add("POST", "default", function () {
             $input = file_get_contents("php://input");
             $this->handlePost($input);
         });
@@ -52,7 +61,7 @@ class Action
     {
         $comment = null;
         try {
-            $comment = Comment\CommentCoder::decode($input);
+            $comment = CommentCoder::decode($input);
             $comment->setIp($this->request->getIpAddress());
         } catch (\InvalidArgumentException $e) {
             $responder = new Responder\PostFailureResponder();
@@ -67,7 +76,7 @@ class Action
                 $responder = new Responder\PostFailureResponder();
             } else {
                 $responder = new Responder\PostSuccessResponder();
-                $jsonOutput = Comment\CommentCoder::encode($comment);
+                $jsonOutput = CommentCoder::encode($comment);
                 $responder->setOutput($jsonOutput);
             }
         }

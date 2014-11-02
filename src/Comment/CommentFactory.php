@@ -12,7 +12,7 @@ namespace SimpleFeedback\Comment;
 class CommentFactory
 {
     /**
-     * @param $message string A message
+     * @param $dirtyMessage string  A message (plain text)
      * @return Comment A new instance
      */
     public static function createMinimal($dirtyMessage)

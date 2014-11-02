@@ -6,37 +6,39 @@
  * Time: 16:39
  */
 
-namespace SimpleFeedback;
+namespace SimpleFeedback\Action;
 
 
-class Request 
+class Request
 {
     protected $request;
 
-    public function __construct($request) {
+    public function __construct($request)
+    {
         $this->request = $request;
-
     }
 
     /**
      * @return string The IP Address which made the request
      */
-    public function getIpAddress() {
+    public function getIpAddress()
+    {
         return $this->request['REMOTE_ADDR'];
     }
 
     /**
      * @return string The request method (GET, POST, etc.)
      */
-    public function getRequestMethod() {
+    public function getRequestMethod()
+    {
         return $this->request['REQUEST_METHOD'];
     }
 
     /**
      * @return string Returns the query string
      */
-    public function getQuery() {
+    public function getQuery()
+    {
         return $this->request['QUERY_STRING'];
     }
-
-} 
+}

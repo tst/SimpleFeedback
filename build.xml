@@ -10,6 +10,7 @@
         <mkdir dir="${buildDir}/docs/phpdocs" />
         <mkdir dir="${buildDir}/docs/codingstandards" />
         <mkdir dir="${buildDir}/docs/phpunit" />
+        <mkdir dir="${buildDir}/data" />
     </target>
 
     <target name="codesniffer" depends="setupDirs">
@@ -77,7 +78,7 @@
 
 
     <target name="database" depends="documentation">
-        <pdosqlexec url="sqlite:${buildDir}/data.sqlite">
+        <pdosqlexec url="sqlite:${buildDir}/data/data.sqlite">
             <fileset dir="${srcDir}">
                 <include name="*.sql"/>
             </fileset>
@@ -90,8 +91,8 @@
         <copy todir="${buildDir}">
             <fileset dir="${srcDir}">
                 <include name="**/*"/>
-                <exclude name="*.sqlite"/>
-                <exclude name="*.sql"/>
+                <exclude name="data/*.sqlite"/>
+                <exclude name="data/*.sql"/>
             </fileset>
         </copy>
     </target>

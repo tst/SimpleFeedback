@@ -6,17 +6,21 @@
  * Time: 17:00
  */
 
-use SimpleFeedback\Router;
+use SimpleFeedback\Action\Router;
 
-class RouterTest extends PHPUnit_Framework_TestCase {
+class RouterTest extends PHPUnit_Framework_TestCase
+{
 
 
     public function testRouting()
     {
         $router = new Router();
-        $router->add("default", "default", function() { return "default default";});
-        $router->add("GET", "default", function() { return "GET default";});
-        $router->add("GET", "param=true", function() { return "GET param=true";});
+        $router->add("default", "default", function () {
+            return "default default"; });
+        $router->add("GET", "default", function () {
+            return "GET default"; });
+        $router->add("GET", "param=true", function () {
+            return "GET param=true"; });
 
         $this->assertEquals("default default", $router->route("FOO", "bar"));
         $this->assertEquals("GET default", $router->route("GET", "param=false"));
@@ -32,8 +36,4 @@ class RouterTest extends PHPUnit_Framework_TestCase {
         $router = new Router();
         $router->route("GET", "foo=bar");
     }
-
-
 }
-
- 

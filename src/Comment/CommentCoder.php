@@ -34,9 +34,10 @@ class CommentCoder
      * @param array[Comments] $comments An array of comment objects
      * @return string All objects encoded in JSON
      */
-    public static function encodeArray(array $comments) {
+    public static function encodeArray(array $comments)
+    {
         $commentAsArray = array();
-        foreach($comments as $comment) {
+        foreach ($comments as $comment) {
             $commentField = array('commentMessage' => $comment->getMessage(),
                 'ipAddress' => $comment->getIpAddress());
             $commentAsArray[] = $commentField;

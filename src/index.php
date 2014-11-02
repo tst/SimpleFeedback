@@ -10,10 +10,16 @@ namespace SimpleFeedback;
 
 require '../vendor/autoload.php';
 
-$pdo = new \PDO('sqlite:data.sqlite');
-$database = new Database($pdo);
-$request = new Request($_SERVER);
-$router = new Router();
 
-$action = new Action($database, $request, $router);
+use SimpleFeedback\Action;
+use SimpleFeedback\Comment\CommentDatabase;
+
+// TODO: DI Container?
+
+$pdo = new \PDO('sqlite:data/data.sqlite');
+$database = new CommentDatabase($pdo);
+$request = new Action\Request($_SERVER);
+$router = new Action\Router();
+
+$action = new Action\Action($database, $request, $router);
 $action->handleRequest();
