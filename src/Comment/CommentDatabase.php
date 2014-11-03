@@ -51,9 +51,8 @@ class CommentDatabase
     {
         $statement = $this->connection->prepare("SELECT IPAddress, commentText FROM comments ORDER BY rowId ASC;");
         $statement->execute();
-        // TODO: think about using FETCH_OBJECT
-        $commentArray = array();
 
+        $commentArray = array();
         foreach ($statement->fetchAll(\PDO::FETCH_ASSOC) as $row) {
             $comment = CommentFactory::createWithIp($row['commentText'], $row['IPAddress']);
             $commentArray[] = $comment;
