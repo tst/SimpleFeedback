@@ -20,9 +20,12 @@ class ActionTest extends PHPUnit_Framework_TestCase
         $client->get('http://localhost:63342/SimpleFeedback/src/index.php');
     }
 
+
+
     public function testShow()
     {
         $client = new Client();
+
         $response = $client->get('http://localhost:63342/SimpleFeedback/src/index.php?action=show');
 
         $this->assertEquals(200, $response->getStatusCode());

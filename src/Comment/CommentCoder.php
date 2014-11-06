@@ -31,7 +31,7 @@ class CommentCoder
     }
 
     /** Is used to encode an array of Comment objects
-     * @param array[Comments] $comments An array of comment objects
+     * @param Comment[] $comments An array of comment objects
      * @return string All objects encoded in JSON
      */
     public static function encodeArray(array $comments)

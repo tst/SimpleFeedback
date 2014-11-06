@@ -72,12 +72,12 @@ class Action
         if (!isset($responder)) {
             $success = $this->database->saveData($comment);
 
-            if ($success === false) {
-                $responder = new Responder\PostFailureResponder();
-            } else {
+            if ($success === true) {
                 $responder = new Responder\PostSuccessResponder();
                 $jsonOutput = CommentCoder::encode($comment);
                 $responder->setOutput($jsonOutput);
+            } else {
+                $responder = new Responder\PostFailureResponder();
             }
         }
         $responder->serve();

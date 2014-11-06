@@ -16,10 +16,10 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
     public static function setUpBeforeClass()
     {
         $pathToSchema = dirname(dirname(dirname(__FILE__))) . "/src/data/schema.sql";
-        $SQLSchema = file_get_contents($pathToSchema);
+        $sqlSchema = file_get_contents($pathToSchema);
 
         $connection = new \PDO('sqlite::memory:');
-        $connection->exec($SQLSchema);
+        $connection->exec($sqlSchema);
 
         $connection->exec("INSERT INTO comments (IPAddress, commentText) VALUES ('127.0.0.1', 'First')");
 
