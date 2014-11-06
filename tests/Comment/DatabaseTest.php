@@ -11,13 +11,25 @@ use SimpleFeedback\Comment\CommentDatabase;
 class DatabaseTest extends PHPUnit_Framework_TestCase
 {
     private $database;
+    private static $connection;
+
+    public static function setUpBeforeClass()
+    {
+        $pathToSchema = dirname(dirname(dirname(__FILE__))) . "/src/data/schema.sql";
+        $SQLSchema = file_get_contents($pathToSchema);
+
+        $connection = new \PDO('sqlite::memory:');
+        $connection->exec($SQLSchema);
+
+        $connection->exec("INSERT INTO comments (IPAddress, commentText) VALUES ('127.0.0.1', 'First')");
+
+        self::$connection = $connection;
+    }
+
 
     public function setUp()
     {
-        // TODO: Create single testing database and fill it up with data and tear it down afterwards
-        $path = dirname(dirname(dirname(__FILE__))) . "/src/data/data.sqlite";
-        $connection = new \PDO('sqlite:'.$path);
-        $this->database = new CommentDatabase($connection);
+        $this->database = new CommentDatabase(self::$connection);
     }
 
     public function testGoodSaveData()
@@ -30,7 +42,7 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
 
     public function testGetData()
     {
-        $expected = \SimpleFeedback\Comment\CommentFactory::createWithIp("Hello", "127.0.0.1");
+        $expected = \SimpleFeedback\Comment\CommentFactory::createWithIp("First", "127.0.0.1");
         $returnedData = $this->database->getData();
         $this->assertEquals($expected, $returnedData[0]);
     }

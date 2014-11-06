@@ -1,16 +1,17 @@
 # SimpleFeedback - a super simple feedback backend written in PHP
 
 
-## Still in development! 
-
+### Attention! Not production-ready
 
 ## Description
 
-TODO: Write description
+I looked for a simple feedback software and didn't find one. Even the simplest ones were monstrosities. Therefore, I
+started SimpleFeedback which also helped me to get back into PHP. 
+
 
 ## Installation
 
-* Install dependencies with composer (Commandline: `php composer.phar install`) -- TODO: integrate in build.xml?
+* Install dependencies with composer (Commandline: `php composer.phar install`)
 * Run build with phing (Commandline: `phing`)
 * Deploy `/build`
 
